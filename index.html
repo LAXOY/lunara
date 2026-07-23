@@ -1,45 +1,2647 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cycle Bloom</title>
-  <meta name="theme-color" content="#0b0c14" />
-  <style>
-    :root{
-      --bg1:#070810;
-      --bg2:#0c1020;
-      --card:rgba(19,22,38,.72);
-      --card2:rgba(25,30,49,.9);
-      --stroke:rgba(255,255,255,.08);
-      --text:#f7f4fb;
-      --muted:rgba(247,244,251,.66);
-      --muted2:rgba(247,244,251,.46);
-      --pink:#ff7db3;
-      --pink2:#ffd0e2;
-      --lav:#b89cff;
-      --mint:#7de7c6;
-      --gold:#ffd786;
-      --shadow:0 24px 80px rgba(0,0,0,.45);
-      --r:28px;
-      --r2:18px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      color:var(--text);
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:
-        radial-gradient(circle at 12% 10%, rgba(255,125,179,.18), transparent 24%),
-        radial-gradient(circle at 86% 14%, rgba(184,156,255,.20), transparent 22%),
-        radial-gradient(circle at 55% 115%, rgba(125,231,198,.14), transparent 30%),
-        linear-gradient(180deg, #05060b 0%, #090c16 100%);
-      overflow-x:hidden;
-    }
-  </style>
-</head>
-<body>
-  <div class="bgfx"></div>
-</body>
-</html>
+<!-- ========================= -->
+<!-- LUNARA 2.0 | HOME SECTION -->
+<!-- ========================= -->
+
+<div class="glass heroCard">
+
+    <div class="heroTop">
+
+        <div>
+
+            <div class="smallTitle">
+                Bugünkü Durum
+            </div>
+
+            <h2 id="todayStatus">
+                Döngü Bekleniyor
+            </h2>
+
+        </div>
+
+        <div class="flowerBox">
+
+            🌸
+
+        </div>
+
+    </div>
+
+    <div class="progressArea">
+
+        <div class="progressBar">
+
+            <div
+            id="progressFill"
+            class="progressFill">
+            </div>
+
+        </div>
+
+        <div
+        id="progressText"
+        class="progressText">
+
+            Henüz veri girilmedi.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="glass">
+
+<h2>
+
+📅 Döngü Bilgileri
+
+</h2>
+
+<br>
+
+<label>
+
+Son Regl Tarihi
+
+</label>
+
+<input
+
+type="date"
+
+id="lastPeriod"
+
+class="input"
+
+>
+
+<br><br>
+
+<label>
+
+Döngü Süresi
+
+</label>
+
+<input
+
+type="number"
+
+value="28"
+
+id="cycleLength"
+
+class="input"
+
+>
+
+<br><br>
+
+<label>
+
+Regl Süresi
+
+</label>
+
+<input
+
+type="number"
+
+value="5"
+
+id="periodLength"
+
+class="input"
+
+>
+
+<br><br>
+
+<button
+
+class="saveButton"
+
+onclick="saveCycle()">
+
+Kaydet
+
+</button>
+
+</div>
+
+
+
+<div class="glass">
+
+<h2>
+
+📌 Tahminler
+
+</h2>
+
+<br>
+
+<div class="infoCard">
+
+<div>
+
+Sonraki Regl
+
+</div>
+
+<b id="nextPeriod">
+
+-
+
+</b>
+
+</div>
+
+<br>
+
+<div class="infoCard">
+
+<div>
+
+Yumurtlama
+
+</div>
+
+<b id="ovulation">
+
+-
+
+</b>
+
+</div>
+
+<br>
+
+<div class="infoCard">
+
+<div>
+
+Doğurganlık
+
+</div>
+
+<b id="fertile">
+
+-
+
+</b>
+
+</div>
+
+</div>
+
+
+<style>
+
+.heroCard{
+
+margin-top:5px;
+
+}
+
+.heroTop{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.smallTitle{
+
+opacity:.7;
+
+font-size:14px;
+
+}
+
+.flowerBox{
+
+font-size:55px;
+
+animation:flowerFloat 4s ease infinite;
+
+}
+
+@keyframes flowerFloat{
+
+0%{
+
+transform:translateY(0px);
+
+}
+
+50%{
+
+transform:translateY(-12px);
+
+}
+
+100%{
+
+transform:translateY(0px);
+
+}
+
+}
+
+.progressArea{
+
+margin-top:25px;
+
+}
+
+.progressBar{
+
+height:12px;
+
+background:rgba(255,255,255,.1);
+
+border-radius:50px;
+
+overflow:hidden;
+
+}
+
+.progressFill{
+
+width:0%;
+
+height:100%;
+
+background:linear-gradient(
+90deg,
+#ff89c8,
+#c98cff);
+
+border-radius:50px;
+
+transition:1s;
+
+}
+
+.progressText{
+
+margin-top:10px;
+
+opacity:.8;
+
+font-size:14px;
+
+}
+
+.input{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+outline:none;
+
+border-radius:18px;
+
+margin-top:8px;
+
+background:rgba(255,255,255,.08);
+
+color:white;
+
+font-size:15px;
+
+}
+
+.saveButton{
+
+width:100%;
+
+padding:17px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:16px;
+
+background:linear-gradient(
+90deg,
+#ff79ba,
+#b57dff);
+
+color:white;
+
+cursor:pointer;
+
+}
+
+.infoCard{
+
+display:flex;
+
+justify-content:space-between;
+
+font-size:17px;
+
+}
+
+</style>
+
+<script>
+
+function saveCycle(){
+
+let start=new Date(
+document.getElementById("lastPeriod").value);
+
+let cycle=parseInt(
+document.getElementById("cycleLength").value);
+
+let period=parseInt(
+document.getElementById("periodLength").value);
+
+localStorage.setItem(
+"lunaraStart",
+start);
+
+localStorage.setItem(
+"lunaraCycle",
+cycle);
+
+localStorage.setItem(
+"lunaraPeriod",
+period);
+
+calculateCycle();
+
+}
+
+function calculateCycle(){
+
+let start=new Date(
+localStorage.getItem(
+"lunaraStart"));
+
+let cycle=parseInt(
+localStorage.getItem(
+"lunaraCycle"));
+
+let period=parseInt(
+localStorage.getItem(
+"lunaraPeriod"));
+
+if(!cycle)return;
+
+let next=new Date(start);
+
+next.setDate(
+next.getDate()+cycle);
+
+let ovu=new Date(next);
+
+ovu.setDate(
+ovu.getDate()-14);
+
+let fertileStart=new Date(ovu);
+
+fertileStart.setDate(
+fertileStart.getDate()-4);
+
+let fertileEnd=new Date(ovu);
+
+fertileEnd.setDate(
+fertileEnd.getDate()+1);
+
+document.getElementById(
+"nextPeriod").innerHTML=
+next.toLocaleDateString("tr-TR");
+
+document.getElementById(
+"ovulation").innerHTML=
+ovu.toLocaleDateString("tr-TR");
+
+document.getElementById(
+"fertile").innerHTML=
+fertileStart.toLocaleDateString("tr-TR")
++" - "+
+fertileEnd.toLocaleDateString("tr-TR");
+
+}
+
+calculateCycle();
+
+</script>
+<!-- ========================= -->
+<!-- LUNARA PREMIUM CALENDAR -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>🗓️ Takvim</h2>
+
+<p class="calendarSub">
+Döngünü tek bakışta takip et.
+</p>
+
+<div class="calendarHeader">
+
+<button onclick="prevMonth()">
+
+❮
+
+</button>
+
+<h3 id="monthTitle">
+
+Temmuz 2026
+
+</h3>
+
+<button onclick="nextMonth()">
+
+❯
+
+</button>
+
+</div>
+
+<div class="weekDays">
+
+<span>Pzt</span>
+<span>Sal</span>
+<span>Çar</span>
+<span>Per</span>
+<span>Cum</span>
+<span>Cmt</span>
+<span>Paz</span>
+
+</div>
+
+<div
+id="calendar"
+class="calendarGrid">
+
+</div>
+
+</div>
+
+<style>
+
+.calendarSub{
+
+opacity:.7;
+
+margin-top:8px;
+
+margin-bottom:20px;
+
+}
+
+.calendarHeader{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.calendarHeader button{
+
+width:42px;
+
+height:42px;
+
+border:none;
+
+border-radius:15px;
+
+background:rgba(255,255,255,.08);
+
+color:white;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+.weekDays{
+
+display:grid;
+
+grid-template-columns:repeat(7,1fr);
+
+text-align:center;
+
+margin-bottom:15px;
+
+opacity:.7;
+
+font-size:14px;
+
+}
+
+.calendarGrid{
+
+display:grid;
+
+grid-template-columns:repeat(7,1fr);
+
+gap:10px;
+
+}
+
+.day{
+
+aspect-ratio:1;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.05);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:15px;
+
+transition:.35s;
+
+cursor:pointer;
+
+}
+
+.day:hover{
+
+transform:translateY(-4px);
+
+background:rgba(255,255,255,.10);
+
+}
+
+.today{
+
+border:2px solid #ffffff;
+
+}
+
+.periodDay{
+
+background:#ff5e99;
+
+}
+
+.ovulationDay{
+
+background:#8d6dff;
+
+}
+
+.fertileDay{
+
+background:#7bcb7b;
+
+color:black;
+
+}
+
+.empty{
+
+visibility:hidden;
+
+}
+
+</style>
+
+<script>
+
+let currentMonth=new Date();
+
+function drawCalendar(){
+
+let calendar=document.getElementById("calendar");
+
+calendar.innerHTML="";
+
+let year=currentMonth.getFullYear();
+
+let month=currentMonth.getMonth();
+
+document.getElementById("monthTitle").innerHTML=
+
+currentMonth.toLocaleString(
+
+"tr-TR",
+
+{
+
+month:"long",
+
+year:"numeric"
+
+}
+
+);
+
+let firstDay=
+
+new Date(year,month,1);
+
+let lastDay=
+
+new Date(year,month+1,0);
+
+let start=
+
+(firstDay.getDay()+6)%7;
+
+for(let i=0;i<start;i++){
+
+let div=document.createElement("div");
+
+div.className="empty";
+
+calendar.appendChild(div);
+
+}
+
+let today=new Date();
+
+for(let d=1;d<=lastDay.getDate();d++){
+
+let cell=document.createElement("div");
+
+cell.className="day";
+
+cell.innerHTML=d;
+
+if(
+
+today.getDate()==d&&
+
+today.getMonth()==month&&
+
+today.getFullYear()==year
+
+){
+
+cell.classList.add("today");
+
+}
+
+calendar.appendChild(cell);
+
+}
+
+}
+
+function prevMonth(){
+
+currentMonth.setMonth(
+
+currentMonth.getMonth()-1
+
+);
+
+drawCalendar();
+
+}
+
+function nextMonth(){
+
+currentMonth.setMonth(
+
+currentMonth.getMonth()+1
+
+);
+
+drawCalendar();
+
+}
+
+drawCalendar();
+
+</script>
+<!-- ========================= -->
+<!-- LUNARA FLOWER SYSTEM -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>🌸 Yaşayan Çiçek</h2>
+
+<p class="flowerText">
+
+Döngün ilerledikçe çiçeğin de seninle birlikte büyür.
+
+</p>
+
+<div class="flowerContainer">
+
+<div id="flowerStage" class="flowerStage">
+
+🌱
+
+</div>
+
+<div id="flowerTitle">
+
+Yeni Başlangıç
+
+</div>
+
+<div id="flowerDesc">
+
+Henüz yeni başladın.
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.flowerContainer{
+
+margin-top:25px;
+
+text-align:center;
+
+}
+
+.flowerStage{
+
+font-size:95px;
+
+animation:flowerIdle 4s ease infinite;
+
+}
+
+@keyframes flowerIdle{
+
+0%{
+
+transform:translateY(0) rotate(0deg);
+
+}
+
+50%{
+
+transform:translateY(-12px) rotate(4deg);
+
+}
+
+100%{
+
+transform:translateY(0) rotate(0deg);
+
+}
+
+}
+
+#flowerTitle{
+
+font-size:23px;
+
+font-weight:600;
+
+margin-top:15px;
+
+}
+
+#flowerDesc{
+
+margin-top:10px;
+
+opacity:.75;
+
+line-height:1.6;
+
+}
+
+</style>
+
+<script>
+
+function updateFlower(){
+
+let start=
+
+new Date(
+
+localStorage.getItem(
+
+"lunaraStart"
+
+)
+
+);
+
+if(isNaN(start))return;
+
+let cycle=
+
+parseInt(
+
+localStorage.getItem(
+
+"lunaraCycle")
+
+)||28;
+
+let today=
+
+new Date();
+
+let diff=
+
+Math.floor(
+
+(today-start)/86400000
+
+);
+
+let day=
+
+((diff%cycle)+cycle)%cycle;
+
+let flower=
+
+document.getElementById(
+
+"flowerStage"
+
+);
+
+let title=
+
+document.getElementById(
+
+"flowerTitle"
+
+);
+
+let desc=
+
+document.getElementById(
+
+"flowerDesc"
+
+);
+
+let progress=
+
+(day/cycle)*100;
+
+document.getElementById(
+
+"progressFill"
+
+).style.width=
+
+progress+"%";
+
+document.getElementById(
+
+"progressText"
+
+).innerHTML=
+
+"Döngünün "
+
++
+
+(day+1)
+
++
+
+". günündesin";
+
+if(day<=4){
+
+flower.innerHTML="🩸";
+
+title.innerHTML="Regl Dönemi";
+
+desc.innerHTML=
+
+"Bugün dinlenmek ve kendine iyi davranmak önemli.";
+
+document.getElementById(
+
+"todayStatus"
+
+).innerHTML=
+
+"Regl Dönemi";
+
+}
+
+else if(day<=10){
+
+flower.innerHTML="🌱";
+
+title.innerHTML="Yenilenme";
+
+desc.innerHTML=
+
+"Vücudun yeni döngüsüne hazırlanıyor.";
+
+document.getElementById(
+
+"todayStatus"
+
+).innerHTML=
+
+"Yenilenme";
+
+}
+
+else if(day<=16){
+
+flower.innerHTML="🌷";
+
+title.innerHTML="Çiçek Açıyor";
+
+desc.innerHTML=
+
+"Enerjin yükselmeye başlayabilir.";
+
+document.getElementById(
+
+"todayStatus"
+
+).innerHTML=
+
+"Yumurtlama Yaklaşıyor";
+
+}
+
+else if(day<=21){
+
+flower.innerHTML="🌸";
+
+title.innerHTML="Tam Çiçek";
+
+desc.innerHTML=
+
+"Döngünün en canlı dönemlerinden biri.";
+
+document.getElementById(
+
+"todayStatus"
+
+).innerHTML=
+
+"En Verimli Günler";
+
+}
+
+else{
+
+flower.innerHTML="🍃";
+
+title.innerHTML="Sakinleşme";
+
+desc.innerHTML=
+
+"Yeni döngüye doğru ilerliyorsun.";
+
+document.getElementById(
+
+"todayStatus"
+
+).innerHTML=
+
+"Döngü Sonu";
+
+}
+
+}
+
+updateFlower();
+
+</script>
+
+<!-- ========================= -->
+<!-- MOOD SECTION -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>💜 Bugün Nasılsın?</h2>
+
+<div class="moodGrid">
+
+<button onclick="saveMood('😊')">😊</button>
+
+<button onclick="saveMood('😴')">😴</button>
+
+<button onclick="saveMood('🥺')">🥺</button>
+
+<button onclick="saveMood('😖')">😖</button>
+
+<button onclick="saveMood('😍')">😍</button>
+
+<button onclick="saveMood('😡')">😡</button>
+
+</div>
+
+<p id="selectedMood">
+
+Henüz seçilmedi.
+
+</p>
+
+</div>
+
+<style>
+
+.moodGrid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+.moodGrid button{
+
+height:70px;
+
+font-size:30px;
+
+border:none;
+
+border-radius:22px;
+
+background:rgba(255,255,255,.08);
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.moodGrid button:hover{
+
+transform:scale(1.08);
+
+}
+
+#selectedMood{
+
+margin-top:20px;
+
+opacity:.8;
+
+}
+
+</style>
+
+<script>
+
+function saveMood(mood){
+
+localStorage.setItem(
+
+"lunaraMood",
+
+mood
+
+);
+
+document.getElementById(
+
+"selectedMood"
+
+).innerHTML=
+
+"Bugünkü ruh halin: "+mood;
+
+}
+
+let mood=
+
+localStorage.getItem(
+
+"lunaraMood"
+
+);
+
+if(mood){
+
+document.getElementById(
+
+"selectedMood"
+
+).innerHTML=
+
+"Bugünkü ruh halin: "+mood;
+
+}
+
+</script>
+<!-- ========================= -->
+<!-- LUNARA JOURNAL -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>📝 Günlük</h2>
+
+<p class="journalInfo">
+
+Bugün nasıl hissediyorsun? İstersen birkaç satır yaz.
+
+</p>
+
+<textarea
+
+id="journal"
+
+class="journalBox"
+
+placeholder="Bugün kendini nasıl hissediyorsun?">
+
+</textarea>
+
+<button
+
+class="saveButton"
+
+onclick="saveJournal()">
+
+Notu Kaydet
+
+</button>
+
+</div>
+
+<div class="glass">
+
+<h2>🌙 Luna AI</h2>
+
+<div
+
+id="lunaAnswer"
+
+class="aiCard">
+
+Henüz analiz yok.
+
+</div>
+
+</div>
+
+<div class="glass">
+
+<h2>📚 Geçmiş Notlar</h2>
+
+<div
+
+id="history">
+
+Henüz kayıt bulunmuyor.
+
+</div>
+
+</div>
+
+<style>
+
+.journalInfo{
+
+margin-top:8px;
+
+opacity:.7;
+
+}
+
+.journalBox{
+
+width:100%;
+
+height:170px;
+
+margin-top:20px;
+
+padding:18px;
+
+resize:none;
+
+background:rgba(255,255,255,.08);
+
+border:none;
+
+border-radius:20px;
+
+color:white;
+
+outline:none;
+
+font-size:15px;
+
+line-height:1.7;
+
+}
+
+.aiCard{
+
+margin-top:18px;
+
+padding:18px;
+
+border-radius:20px;
+
+background:linear-gradient(
+
+135deg,
+
+rgba(255,255,255,.08),
+
+rgba(255,255,255,.03)
+
+);
+
+line-height:1.8;
+
+}
+
+.noteCard{
+
+margin-top:15px;
+
+padding:18px;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.05);
+
+}
+
+.noteDate{
+
+font-size:13px;
+
+opacity:.6;
+
+margin-bottom:8px;
+
+}
+
+</style>
+
+<script>
+
+function saveJournal(){
+
+let text=
+
+document.getElementById(
+
+"journal"
+
+).value.trim();
+
+if(text=="") return;
+
+let notes=
+
+JSON.parse(
+
+localStorage.getItem(
+
+"lunaraNotes"
+
+)||"[]");
+
+notes.unshift({
+
+date:new Date().toLocaleDateString("tr-TR"),
+
+text:text
+
+});
+
+localStorage.setItem(
+
+"lunaraNotes",
+
+JSON.stringify(notes));
+
+generateAI(text);
+
+loadHistory();
+
+document.getElementById(
+
+"journal"
+
+).value="";
+
+}
+
+function generateAI(text){
+
+let t=text.toLowerCase();
+
+let answer="💜 Bugünkü notunu kaydettim.";
+
+if(
+
+t.includes("ağrı")||
+
+t.includes("acı")
+
+){
+
+answer="🌸 Bugün biraz zorlanıyor gibi görünüyorsun. Bol su içmeyi deneyebilir ve kendine dinlenmek için zaman ayırabilirsin. Ağrı alışılmadık derecede şiddetliyse bir sağlık uzmanına danışman iyi olabilir.";
+
+}
+
+else if(
+
+t.includes("mutlu")||
+
+t.includes("harika")
+
+){
+
+answer="✨ Bugünkü enerjini görmek çok güzel. Umarım günün aynı güzellikte devam eder.";
+
+}
+
+else if(
+
+t.includes("üzgün")||
+
+t.includes("kötü")
+
+){
+
+answer="💜 Kendine karşı nazik olmayı unutma. Her gün aynı hissettirmez ve bu tamamen normaldir.";
+
+}
+
+else if(
+
+t.includes("stres")||
+
+t.includes("kaygı")
+
+){
+
+answer="🌙 Yoğun hissediyor olabilirsin. Bugün birkaç dakika nefes egzersizi veya kısa bir yürüyüş iyi gelebilir.";
+
+}
+
+document.getElementById(
+
+"lunaAnswer"
+
+).innerHTML=
+
+answer;
+
+}
+
+function loadHistory(){
+
+let notes=
+
+JSON.parse(
+
+localStorage.getItem(
+
+"lunaraNotes"
+
+)||"[]");
+
+let area=
+
+document.getElementById(
+
+"history");
+
+if(notes.length==0){
+
+area.innerHTML=
+
+"Henüz kayıt bulunmuyor.";
+
+return;
+
+}
+
+area.innerHTML="";
+
+notes.forEach(n=>{
+
+area.innerHTML+=`
+
+<div class="noteCard">
+
+<div class="noteDate">
+
+${n.date}
+
+</div>
+
+<div>
+
+${n.text}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadHistory();
+
+</script>
+<!-- ========================= -->
+<!-- LUNARA SYMPTOMS -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>🤒 Bugünkü Semptomlar</h2>
+
+<p class="symptomInfo">
+
+Bugün yaşadığın belirtileri seçebilirsin.
+
+</p>
+
+<div class="symptomGrid">
+
+<button onclick="toggleSymptom(this,'Kramp')">🤕 Kramp</button>
+
+<button onclick="toggleSymptom(this,'Baş Ağrısı')">🤯 Baş Ağrısı</button>
+
+<button onclick="toggleSymptom(this,'Şişkinlik')">🫧 Şişkinlik</button>
+
+<button onclick="toggleSymptom(this,'Mide Bulantısı')">🤢 Mide Bulantısı</button>
+
+<button onclick="toggleSymptom(this,'Bel Ağrısı')">🦴 Bel Ağrısı</button>
+
+<button onclick="toggleSymptom(this,'Yorgunluk')">😴 Yorgunluk</button>
+
+<button onclick="toggleSymptom(this,'Sinirlilik')">😠 Sinirlilik</button>
+
+<button onclick="toggleSymptom(this,'Tatlı İsteği')">🍫 Tatlı İsteği</button>
+
+<button onclick="toggleSymptom(this,'Akne')">🌼 Akne</button>
+
+</div>
+
+<button
+
+class="saveButton"
+
+onclick="saveSymptoms()">
+
+Semptomları Kaydet
+
+</button>
+
+</div>
+
+<style>
+
+.symptomInfo{
+
+margin-top:8px;
+
+opacity:.7;
+
+}
+
+.symptomGrid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:14px;
+
+margin-top:22px;
+
+margin-bottom:22px;
+
+}
+
+.symptomGrid button{
+
+padding:16px;
+
+background:rgba(255,255,255,.06);
+
+border:none;
+
+border-radius:18px;
+
+color:white;
+
+cursor:pointer;
+
+transition:.35s;
+
+}
+
+.symptomGrid button.active{
+
+background:linear-gradient(
+
+90deg,
+
+#ff77b7,
+
+#a876ff
+
+);
+
+transform:scale(1.03);
+
+}
+
+</style>
+
+<script>
+
+let symptoms=[];
+
+function toggleSymptom(btn,name){
+
+btn.classList.toggle("active");
+
+if(symptoms.includes(name)){
+
+symptoms=symptoms.filter(
+
+x=>x!=name
+
+);
+
+}else{
+
+symptoms.push(name);
+
+}
+
+}
+
+function saveSymptoms(){
+
+localStorage.setItem(
+
+"lunaraSymptoms",
+
+JSON.stringify(symptoms)
+
+);
+
+updateStats();
+
+}
+
+</script>
+
+<!-- ========================= -->
+<!-- LUNARA STATS -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>📊 İstatistikler</h2>
+
+<div class="statCard">
+
+<div>
+
+Toplam Günlük
+
+</div>
+
+<b id="statNotes">
+
+0
+
+</b>
+
+</div>
+
+<br>
+
+<div class="statCard">
+
+<div>
+
+Kaydedilen Semptom
+
+</div>
+
+<b id="statSymptoms">
+
+0
+
+</b>
+
+</div>
+
+<br>
+
+<div class="statCard">
+
+<div>
+
+Son Ruh Hali
+
+</div>
+
+<b id="statMood">
+
+-
+
+</b>
+
+</div>
+
+</div>
+
+<style>
+
+.statCard{
+
+display:flex;
+
+justify-content:space-between;
+
+font-size:17px;
+
+padding:12px 0;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+</style>
+
+<script>
+
+function updateStats(){
+
+let notes=
+
+JSON.parse(
+
+localStorage.getItem(
+
+"lunaraNotes"
+
+)||"[]");
+
+document.getElementById(
+
+"statNotes"
+
+).innerHTML=
+
+notes.length;
+
+let sym=
+
+JSON.parse(
+
+localStorage.getItem(
+
+"lunaraSymptoms"
+
+)||"[]");
+
+document.getElementById(
+
+"statSymptoms"
+
+).innerHTML=
+
+sym.length;
+
+let mood=
+
+localStorage.getItem(
+
+"lunaraMood"
+
+);
+
+document.getElementById(
+
+"statMood"
+
+).innerHTML=
+
+mood||"-";
+
+}
+
+updateStats();
+
+</script>
+
+<!-- ========================= -->
+<!-- ACHIEVEMENTS -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>🏆 Başarılar</h2>
+
+<div class="badgeGrid">
+
+<div class="badge">
+
+🌸
+
+<div>
+
+İlk Kayıt
+
+</div>
+
+</div>
+
+<div class="badge lock">
+
+🌷
+
+<div>
+
+7 Gün
+
+</div>
+
+</div>
+
+<div class="badge lock">
+
+🌺
+
+<div>
+
+30 Gün
+
+</div>
+
+</div>
+
+<div class="badge lock">
+
+👑
+
+<div>
+
+90 Gün
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.badgeGrid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:18px;
+
+margin-top:20px;
+
+}
+
+.badge{
+
+padding:20px;
+
+border-radius:22px;
+
+background:rgba(255,255,255,.08);
+
+text-align:center;
+
+font-size:34px;
+
+}
+
+.badge div{
+
+font-size:14px;
+
+margin-top:10px;
+
+}
+
+.lock{
+
+opacity:.35;
+
+filter:grayscale(100%);
+
+}
+
+</style>
+<!-- ========================= -->
+<!-- LUNARA SETTINGS -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>⚙️ Ayarlar</h2>
+
+<div class="settingRow">
+
+<div>
+
+🌙 Koyu Tema
+
+</div>
+
+<label class="switch">
+
+<input
+type="checkbox"
+id="themeSwitch">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<div class="settingRow">
+
+<div>
+
+✨ Animasyonlar
+
+</div>
+
+<label class="switch">
+
+<input
+type="checkbox"
+id="animationSwitch"
+checked>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<div class="settingRow">
+
+<div>
+
+🔔 Bildirimler
+
+</div>
+
+<label class="switch">
+
+<input
+type="checkbox"
+id="notificationSwitch">
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- PREMIUM CHART -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>📈 Son Döngüler</h2>
+
+<canvas
+id="cycleChart"
+height="180">
+</canvas>
+
+</div>
+
+<style>
+
+.settingRow{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-top:22px;
+
+}
+
+.switch{
+
+position:relative;
+
+width:58px;
+
+height:30px;
+
+display:inline-block;
+
+}
+
+.switch input{
+
+display:none;
+
+}
+
+.slider{
+
+position:absolute;
+
+inset:0;
+
+background:#555;
+
+border-radius:40px;
+
+transition:.35s;
+
+}
+
+.slider:before{
+
+content:"";
+
+position:absolute;
+
+width:24px;
+
+height:24px;
+
+left:3px;
+
+top:3px;
+
+background:white;
+
+border-radius:50%;
+
+transition:.35s;
+
+}
+
+input:checked+.slider{
+
+background:#ff7aba;
+
+}
+
+input:checked+.slider:before{
+
+transform:translateX(28px);
+
+}
+
+canvas{
+
+margin-top:20px;
+
+width:100%;
+
+border-radius:20px;
+
+}
+
+</style>
+
+<script>
+
+const canvas=
+
+document.getElementById(
+
+"cycleChart"
+
+);
+
+const ctx=
+
+canvas.getContext("2d");
+
+const values=[
+
+23,
+
+28,
+
+26,
+
+29,
+
+27,
+
+28
+
+];
+
+ctx.lineWidth=4;
+
+ctx.strokeStyle="#ff86c5";
+
+ctx.beginPath();
+
+values.forEach((v,i)=>{
+
+let x=30+i*55;
+
+let y=150-v*3;
+
+if(i==0){
+
+ctx.moveTo(x,y);
+
+}else{
+
+ctx.lineTo(x,y);
+
+}
+
+});
+
+ctx.stroke();
+
+values.forEach((v,i)=>{
+
+let x=30+i*55;
+
+let y=150-v*3;
+
+ctx.beginPath();
+
+ctx.fillStyle="#ffffff";
+
+ctx.arc(x,y,5,0,Math.PI*2);
+
+ctx.fill();
+
+});
+
+</script>
+
+
+<!-- ========================= -->
+<!-- BACKUP -->
+<!-- ========================= -->
+
+<div class="glass">
+
+<h2>💾 Veriler</h2>
+
+<button
+
+class="saveButton"
+
+onclick="exportData()">
+
+Verileri Dışa Aktar
+
+</button>
+
+<br><br>
+
+<input
+
+type="file"
+
+id="importFile"
+
+hidden
+
+onchange="importData(event)"
+
+>
+
+<button
+
+class="saveButton"
+
+onclick="document.getElementById('importFile').click()">
+
+Verileri İçe Aktar
+
+</button>
+
+</div>
+
+<script>
+
+function exportData(){
+
+let data={};
+
+for(let i=0;i<localStorage.length;i++){
+
+let key=
+
+localStorage.key(i);
+
+if(key.startsWith("lunara")){
+
+data[key]=
+
+localStorage.getItem(key);
+
+}
+
+}
+
+let blob=
+
+new Blob(
+
+[JSON.stringify(data)],
+
+{
+
+type:"application/json"
+
+}
+
+);
+
+let a=
+
+document.createElement("a");
+
+a.href=
+
+URL.createObjectURL(blob);
+
+a.download=
+
+"lunara-backup.json";
+
+a.click();
+
+}
+
+function importData(e){
+
+let file=
+
+e.target.files[0];
+
+if(!file)return;
+
+let reader=
+
+new FileReader();
+
+reader.onload=function(){
+
+let data=
+
+JSON.parse(
+
+reader.result
+
+);
+
+Object.keys(data)
+
+.forEach(key=>{
+
+localStorage.setItem(
+
+key,
+
+data[key]
+
+);
+
+});
+
+location.reload();
+
+};
+
+reader.readAsText(file);
+
+}
+
+</script>
+
+
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
+
+<footer>
+
+Lunara 2.0
+
+<br>
+
+Made with 💜
+
+</footer>
+
+<style>
+
+footer{
+
+margin:50px 0 120px;
+
+text-align:center;
+
+opacity:.5;
+
+font-size:14px;
+
+}
+
+</style>
+<!-- ========================= -->
+<!-- SECRET HEART -->
+<!-- ========================= -->
+
+<div id="secretHeart">
+
+❤️
+
+</div>
+
+<div id="secretScreen">
+
+<div class="secretCard">
+
+<h1>
+
+💌
+
+</h1>
+
+<h2>
+
+Sana Küçük Bir Mektup
+
+</h2>
+
+<p id="secretMessage">
+
+Eğer bunu okuyorsan...
+
+Muhtemelen yine kendini ikinci plana atıyorsundur.
+
+Ama bilmeni isterim ki benim için önemli olan şey senin iyi olman.
+
+Kendine iyi bak.
+
+Dinlen.
+
+Bol bol gül.
+
+Ve hiçbir zaman yalnız olduğunu düşünme.
+
+❤️
+
+</p>
+
+<button
+onclick="closeSecret()">
+
+Kapat
+
+</button>
+
+</div>
+
+</div>
+
+<style>
+
+#secretHeart{
+
+position:fixed;
+
+right:18px;
+
+top:18px;
+
+font-size:18px;
+
+opacity:.08;
+
+cursor:pointer;
+
+user-select:none;
+
+transition:.4s;
+
+z-index:999;
+
+}
+
+#secretHeart:hover{
+
+opacity:.35;
+
+transform:scale(1.2);
+
+}
+
+#secretScreen{
+
+position:fixed;
+
+inset:0;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+background:rgba(0,0,0,.75);
+
+backdrop-filter:blur(10px);
+
+z-index:999999;
+
+}
+
+.secretCard{
+
+width:90%;
+
+max-width:420px;
+
+padding:35px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(25px);
+
+text-align:center;
+
+border:1px solid rgba(255,255,255,.12);
+
+}
+
+.secretCard h2{
+
+margin:18px 0;
+
+}
+
+.secretCard p{
+
+line-height:1.9;
+
+opacity:.9;
+
+margin-bottom:25px;
+
+}
+
+.secretCard button{
+
+padding:14px 35px;
+
+border:none;
+
+border-radius:18px;
+
+background:linear-gradient(
+90deg,
+#ff79ba,
+#a975ff);
+
+color:white;
+
+cursor:pointer;
+
+font-size:15px;
+
+}
+
+</style>
+
+<script>
+
+let tapCount=0;
+
+document
+
+.getElementById("secretHeart")
+
+.onclick=function(){
+
+tapCount++;
+
+if(tapCount>=5){
+
+document
+
+.getElementById(
+
+"secretScreen"
+
+).style.display="flex";
+
+tapCount=0;
+
+}
+
+}
+
+function closeSecret(){
+
+document
+
+.getElementById(
+
+"secretScreen"
+
+).style.display="none";
+
+}
+
+</script>
+
+
+<!-- ========================= -->
+<!-- AUTO SAVE -->
+<!-- ========================= -->
+
+<script>
+
+window.addEventListener(
+
+"beforeunload",
+
+()=>{
+
+localStorage.setItem(
+
+"lunaraLastOpen",
+
+new Date()
+
+);
+
+}
+
+);
+
+</script>
+
+
+<!-- ========================= -->
+<!-- SMALL TOAST -->
+<!-- ========================= -->
+
+<div id="toast">
+
+Kaydedildi 🌸
+
+</div>
+
+<style>
+
+#toast{
+
+position:fixed;
+
+bottom:105px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+padding:14px 24px;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(20px);
+
+opacity:0;
+
+transition:.4s;
+
+pointer-events:none;
+
+}
+
+.showToast{
+
+opacity:1 !important;
+
+}
+
+</style>
+
+<script>
+
+function toast(text){
+
+let t=document.getElementById(
+
+"toast"
+
+);
+
+t.innerHTML=text;
+
+t.classList.add(
+
+"showToast"
+
+);
+
+setTimeout(()=>{
+
+t.classList.remove(
+
+"showToast"
+
+);
+
+},2000);
+
+}
+
+</script>
+
+
+<!-- ========================= -->
+<!-- FINAL -->
+<!-- ========================= -->
+
+<script>
+
+console.log(
+
+"%cLUNARA 2.0",
+
+"font-size:28px;color:#ff86c5;font-weight:bold;"
+
+);
+
+console.log(
+
+"Made with 💜"
+
+);
+
+</script>
