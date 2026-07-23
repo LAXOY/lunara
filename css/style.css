@@ -1,1 +1,3173 @@
-.
+/*==================================================
+    LUNARA
+    STYLE.CSS
+    PART 1 - FOUNDATION
+==================================================*/
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Reset */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Inter',sans-serif;
+
+    background:#080913;
+
+    color:#fff;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    position:relative;
+
+}
+
+/* ============================= */
+/* Color System */
+/* ============================= */
+
+:root{
+
+    --primary:#ff6fae;
+
+    --secondary:#8d73ff;
+
+    --accent:#72b8ff;
+
+    --success:#5fd6a3;
+
+    --danger:#ff6b6b;
+
+    --glass:rgba(255,255,255,.08);
+
+    --glass-border:rgba(255,255,255,.14);
+
+    --text:#ffffff;
+
+    --text2:#d6d6de;
+
+    --text3:#8d8da4;
+
+    --shadow:
+    0 15px 50px rgba(0,0,0,.45);
+
+    --radius:24px;
+
+    --transition:.35s ease;
+
+}
+
+/* ============================= */
+/* Animated Background */
+/* ============================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle at 10% 10%,rgba(255,111,174,.18),transparent 28%),
+
+    radial-gradient(circle at 90% 25%,rgba(141,115,255,.18),transparent 32%),
+
+    radial-gradient(circle at 50% 95%,rgba(114,184,255,.15),transparent 30%);
+
+    animation:bgMove 18s ease-in-out infinite alternate;
+
+    z-index:-3;
+
+}
+
+@keyframes bgMove{
+
+    from{
+
+        transform:scale(1);
+
+    }
+
+    to{
+
+        transform:scale(1.15) rotate(5deg);
+
+    }
+
+}
+
+/* Floating Blur */
+
+.background-blur{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:-2;
+
+}
+
+.blur{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(90px);
+
+    opacity:.55;
+
+    animation:floatBlob 15s infinite ease-in-out;
+
+}
+
+.blur1{
+
+    width:320px;
+
+    height:320px;
+
+    background:#ff6fae;
+
+    top:-100px;
+
+    left:-120px;
+
+}
+
+.blur2{
+
+    width:360px;
+
+    height:360px;
+
+    background:#8d73ff;
+
+    right:-120px;
+
+    top:160px;
+
+    animation-delay:3s;
+
+}
+
+.blur3{
+
+    width:280px;
+
+    height:280px;
+
+    background:#72b8ff;
+
+    bottom:-80px;
+
+    left:25%;
+
+    animation-delay:6s;
+
+}
+
+@keyframes floatBlob{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-45px) scale(1.08);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ============================= */
+/* App Layout */
+/* ============================= */
+
+#app{
+
+    width:min(430px,100%);
+
+    margin:auto;
+
+    padding:22px 18px 120px;
+
+    position:relative;
+
+}
+
+/* Glass Card */
+
+.glass{
+
+    background:var(--glass);
+
+    backdrop-filter:blur(22px);
+
+    -webkit-backdrop-filter:blur(22px);
+
+    border:1px solid var(--glass-border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+/* Pages */
+
+.page{
+
+    display:none;
+
+    animation:fadePage .45s ease;
+
+}
+
+.page.active{
+
+    display:block;
+
+}
+
+@keyframes fadePage{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Typography */
+
+h1{
+
+    font-size:2rem;
+
+    font-weight:800;
+
+}
+
+h2{
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+}
+
+h3{
+
+    font-size:1.1rem;
+
+    font-weight:600;
+
+}
+
+p{
+
+    color:var(--text2);
+
+    line-height:1.7;
+
+}
+
+/* Buttons */
+
+button{
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+    font-family:inherit;
+
+}
+
+/* Inputs */
+
+input,
+textarea{
+
+    border:none;
+
+    outline:none;
+
+    background:none;
+
+    color:#fff;
+
+    font-family:inherit;
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 2
+    SPLASH + HEADER + HERO
+==================================================*/
+
+/* Splash Screen */
+
+#splash-screen{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#080913;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    z-index:9999;
+
+    transition:1s;
+
+}
+
+#splash-screen.hidden{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+
+#splash-screen h1{
+
+    font-size:2.7rem;
+
+    font-weight:800;
+
+    background:linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary),
+    var(--accent));
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:logoFloat 3s infinite ease-in-out;
+
+}
+
+#splash-screen p{
+
+    margin-top:12px;
+
+    font-size:.95rem;
+
+    color:var(--text3);
+
+}
+
+@keyframes logoFloat{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Top Bar */
+
+#topBar{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:25px;
+
+}
+
+#topBar h1{
+
+    font-size:2.2rem;
+
+    font-weight:800;
+
+    letter-spacing:-1px;
+
+}
+
+#welcomeText{
+
+    margin-top:6px;
+
+    color:var(--text3);
+
+}
+
+/* Hero Card */
+
+.hero-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:24px;
+
+    margin-bottom:22px;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.hero-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    border-radius:50%;
+
+    background:radial-gradient(circle,
+    rgba(255,111,174,.20),
+    transparent 70%);
+
+    right:-120px;
+
+    top:-120px;
+
+}
+
+.hero-left{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    z-index:2;
+
+}
+
+.small-title{
+
+    color:var(--text3);
+
+    font-size:.85rem;
+
+}
+
+#cycleDay{
+
+    font-size:3rem;
+
+    font-weight:800;
+
+}
+
+#cyclePhase{
+
+    color:var(--primary);
+
+    font-weight:600;
+
+}
+
+/* Flower */
+
+#flowerContainer{
+
+    width:120px;
+
+    height:120px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+#flowerAnimation{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+    box-shadow:
+
+    0 0 40px rgba(255,111,174,.45),
+
+    0 0 80px rgba(141,115,255,.25);
+
+    animation:flowerPulse 4s infinite ease-in-out;
+
+}
+
+@keyframes flowerPulse{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.08);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* Countdown */
+
+.countdown-card{
+
+    padding:22px;
+
+    margin-bottom:18px;
+
+    text-align:center;
+
+}
+
+.countdown-card h3{
+
+    color:var(--text3);
+
+    margin-bottom:10px;
+
+}
+
+#daysLeft{
+
+    display:block;
+
+    font-size:3rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+}
+
+/* Mini Cards */
+
+.cards-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.mini-card{
+
+    padding:18px;
+
+}
+
+.mini-card h4{
+
+    margin-bottom:10px;
+
+}
+
+.mini-card p{
+
+    color:var(--primary);
+
+    font-weight:600;
+
+}
+
+/* Hover */
+
+.glass:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+
+    0 25px 60px rgba(0,0,0,.45),
+
+    0 0 25px rgba(255,111,174,.10);
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 3
+    LUNA AI + MOOD + QUICK NOTE
+==================================================*/
+
+/* Mood Card */
+
+.mood-card{
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+}
+
+.mood-card h3{
+
+    margin-bottom:18px;
+
+}
+
+.mood-selector{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+}
+
+.mood-btn{
+
+    width:56px;
+
+    height:56px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    font-size:1.5rem;
+
+    transition:.3s;
+
+}
+
+.mood-btn:hover{
+
+    transform:translateY(-6px) scale(1.08);
+
+    background:rgba(255,255,255,.12);
+
+}
+
+.mood-btn.active{
+
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+    box-shadow:0 0 30px rgba(255,111,174,.35);
+
+}
+
+/* Luna AI */
+
+.luna-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:24px;
+
+    margin-bottom:20px;
+
+}
+
+.luna-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+
+    height:250px;
+
+    border-radius:50%;
+
+    background:radial-gradient(circle,
+    rgba(141,115,255,.18),
+    transparent 70%);
+
+    right:-120px;
+
+    bottom:-120px;
+
+}
+
+.luna-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+}
+
+.ai-dot{
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    background:var(--success);
+
+    box-shadow:
+
+    0 0 10px var(--success),
+
+    0 0 25px var(--success);
+
+    animation:pulseAI 2s infinite;
+
+}
+
+@keyframes pulseAI{
+
+    0%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+    50%{
+
+        transform:scale(1.4);
+
+        opacity:.7;
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+#dailyMessage{
+
+    color:var(--text2);
+
+    line-height:1.8;
+
+}
+
+/* Quick Note */
+
+.quick-note-card{
+
+    padding:22px;
+
+    margin-bottom:25px;
+
+}
+
+.quick-note-card h3{
+
+    margin-bottom:16px;
+
+}
+
+#quickNote{
+
+    width:100%;
+
+    min-height:130px;
+
+    resize:none;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    font-size:.95rem;
+
+    margin-bottom:16px;
+
+}
+
+#quickNote::placeholder{
+
+    color:var(--text3);
+
+}
+
+#saveQuickNote{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:18px;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    color:white;
+
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+    box-shadow:
+
+    0 15px 35px rgba(255,111,174,.28);
+
+}
+
+#saveQuickNote:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+    0 20px 40px rgba(255,111,174,.35);
+
+}
+
+#saveQuickNote:active{
+
+    transform:scale(.98);
+
+}
+
+/* Soft Glow */
+
+.hero-card,
+.countdown-card,
+.mood-card,
+.luna-card,
+.quick-note-card,
+.mini-card{
+
+    position:relative;
+
+}
+
+.hero-card::after,
+.countdown-card::after,
+.mood-card::after,
+.luna-card::after,
+.quick-note-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:inherit;
+
+    padding:1px;
+
+    background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.18),
+    rgba(255,255,255,0));
+
+    -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    pointer-events:none;
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 4
+    BOTTOM NAVIGATION + PAGE HEADER
+==================================================*/
+
+/* Page Header */
+
+.page-header{
+
+    margin-bottom:22px;
+
+}
+
+.page-header h2{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    margin-bottom:6px;
+
+}
+
+.page-header p{
+
+    color:var(--text3);
+
+}
+
+/* Bottom Navigation */
+
+#bottomNavigation{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:20px;
+
+    transform:translateX(-50%);
+
+    width:min(400px,92%);
+
+    height:78px;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(30px);
+
+    -webkit-backdrop-filter:blur(30px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.45);
+
+    z-index:999;
+
+}
+
+/* Navigation Buttons */
+
+#bottomNavigation button{
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:18px;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:1.4rem;
+
+    transition:.35s;
+
+}
+
+#bottomNavigation button:hover{
+
+    transform:translateY(-6px);
+
+}
+
+#bottomNavigation button.active{
+
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+    box-shadow:
+
+    0 0 30px rgba(255,111,174,.30);
+
+}
+
+/* Icons */
+
+#navHome::before{
+
+    content:"🏠";
+
+}
+
+#navCalendar::before{
+
+    content:"📅";
+
+}
+
+#navJournal::before{
+
+    content:"📝";
+
+}
+
+#navStats::before{
+
+    content:"📈";
+
+}
+
+#navSettings::before{
+
+    content:"⚙";
+
+}
+
+/* Active Page */
+
+.page{
+
+    opacity:0;
+
+    visibility:hidden;
+
+    position:absolute;
+
+    width:100%;
+
+}
+
+.page.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+    position:relative;
+
+}
+
+/* Smooth Animation */
+
+.page{
+
+    transition:
+
+    opacity .45s,
+
+    transform .45s;
+
+}
+
+.page.active{
+
+    transform:translateY(0);
+
+}
+
+.page:not(.active){
+
+    transform:translateY(25px);
+
+}
+
+/* Floating Effect */
+
+#bottomNavigation::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:inherit;
+
+    background:
+
+    linear-gradient(
+
+    135deg,
+
+    rgba(255,255,255,.08),
+
+    transparent);
+
+    pointer-events:none;
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 5
+    PREMIUM CALENDAR
+==================================================*/
+
+.calendar-card{
+
+    padding:24px;
+
+    margin-bottom:22px;
+
+}
+
+.calendar-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:25px;
+
+}
+
+.calendar-top h3{
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+}
+
+.calendar-top button{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    font-size:1rem;
+
+}
+
+.calendar-top button:hover{
+
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+}
+
+.week-days{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    margin-bottom:15px;
+
+}
+
+.week-days span{
+
+    text-align:center;
+
+    color:var(--text3);
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+}
+
+#calendarGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(7,1fr);
+
+    gap:10px;
+
+}
+
+.calendar-day{
+
+    aspect-ratio:1;
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(255,255,255,.05);
+
+    transition:.3s;
+
+    cursor:pointer;
+
+    position:relative;
+
+}
+
+.calendar-day:hover{
+
+    transform:translateY(-4px);
+
+    background:rgba(255,255,255,.10);
+
+}
+
+.calendar-day.today{
+
+    border:2px solid var(--accent);
+
+}
+
+.calendar-day.period{
+
+    background:linear-gradient(
+    135deg,
+    #ff5d9e,
+    #ff8dc0);
+
+    color:white;
+
+}
+
+.calendar-day.ovulation{
+
+    background:linear-gradient(
+    135deg,
+    #8d73ff,
+    #72b8ff);
+
+}
+
+.calendar-day.fertile{
+
+    background:rgba(95,214,163,.22);
+
+    border:1px solid rgba(95,214,163,.5);
+
+}
+
+.calendar-day.selected{
+
+    transform:scale(1.08);
+
+    box-shadow:
+
+    0 0 25px rgba(255,255,255,.18);
+
+}
+
+/* Legend */
+
+.calendar-legend{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+
+    padding:20px;
+
+    margin-bottom:22px;
+
+}
+
+.legend-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.legend{
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+}
+
+.legend.period{
+
+    background:#ff5d9e;
+
+}
+
+.legend.fertile{
+
+    background:#5fd6a3;
+
+}
+
+.legend.ovulation{
+
+    background:#8d73ff;
+
+}
+
+.legend.today{
+
+    background:#72b8ff;
+
+}
+
+/* Upcoming */
+
+.upcoming-card{
+
+    padding:22px;
+
+}
+
+.event{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:15px 0;
+
+}
+
+.event:not(:last-child){
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+}
+
+.event-dot{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+}
+
+.event-dot.period{
+
+    background:#ff5d9e;
+
+}
+
+.event-dot.ovulation{
+
+    background:#8d73ff;
+
+}
+
+.event-dot.fertile{
+
+    background:#5fd6a3;
+
+}
+
+.event h4{
+
+    font-size:.95rem;
+
+    margin-bottom:4px;
+
+}
+
+.event small{
+
+    color:var(--text3);
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 6
+    PREMIUM EFFECTS & ANIMATIONS
+==================================================*/
+
+/* Glass Reflection */
+
+.glass{
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.glass::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-150%;
+
+    width:70%;
+
+    height:100%;
+
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.12),
+        transparent
+    );
+
+    transform:skewX(-20deg);
+
+    transition:1.2s;
+
+}
+
+.glass:hover::before{
+
+    left:180%;
+
+}
+
+/* Floating Cards */
+
+.hero-card,
+.countdown-card,
+.mood-card,
+.luna-card,
+.quick-note-card,
+.calendar-card,
+.upcoming-card{
+
+    animation:cardFloat 7s ease-in-out infinite;
+
+}
+
+.hero-card{
+
+    animation-delay:0s;
+
+}
+
+.countdown-card{
+
+    animation-delay:.5s;
+
+}
+
+.luna-card{
+
+    animation-delay:1s;
+
+}
+
+@keyframes cardFloat{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-6px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+/* Soft Glow */
+
+.glass{
+
+    box-shadow:
+
+        0 15px 40px rgba(0,0,0,.45),
+
+        inset 0 1px rgba(255,255,255,.08);
+
+}
+
+/* Hero Flower Glow */
+
+#flowerAnimation{
+
+    position:relative;
+
+}
+
+#flowerAnimation::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-18px;
+
+    border-radius:50%;
+
+    background:radial-gradient(
+
+        rgba(255,111,174,.25),
+
+        transparent
+
+    );
+
+    animation:flowerGlow 3s infinite ease-in-out;
+
+}
+
+@keyframes flowerGlow{
+
+    0%{
+
+        transform:scale(.9);
+
+        opacity:.4;
+
+    }
+
+    50%{
+
+        transform:scale(1.25);
+
+        opacity:.8;
+
+    }
+
+    100%{
+
+        transform:scale(.9);
+
+        opacity:.4;
+
+    }
+
+}
+
+/* Buttons */
+
+button{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+button::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:0;
+
+    height:0;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:50%;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    transition:.45s;
+
+}
+
+button:hover::after{
+
+    width:220px;
+
+    height:220px;
+
+}
+
+/* Inputs */
+
+textarea:focus,
+input:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+
+        0 0 25px rgba(255,111,174,.20);
+
+}
+
+/* Loader */
+
+.loader{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    border:5px solid rgba(255,255,255,.08);
+
+    border-top:5px solid var(--primary);
+
+    animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* Toast */
+
+#toastContainer{
+
+    position:fixed;
+
+    top:25px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:99999;
+
+}
+
+.toast{
+
+    margin-bottom:12px;
+
+    padding:14px 20px;
+
+    border-radius:16px;
+
+    background:rgba(25,25,35,.92);
+
+    color:white;
+
+    backdrop-filter:blur(20px);
+
+    animation:toastShow .35s ease;
+
+}
+
+@keyframes toastShow{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Selection */
+
+::selection{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 7
+    JOURNAL PAGE
+==================================================*/
+
+/* Journal */
+
+.journal-card{
+
+    padding:24px;
+
+    margin-bottom:20px;
+
+}
+
+#journalText{
+
+    width:100%;
+
+    min-height:220px;
+
+    resize:none;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:18px;
+
+    font-size:1rem;
+
+    color:var(--text);
+
+    line-height:1.8;
+
+    transition:.35s;
+
+}
+
+#journalText:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+
+        0 0 25px rgba(255,111,174,.18);
+
+}
+
+#journalText::placeholder{
+
+    color:var(--text3);
+
+}
+
+/* Mood */
+
+.mood-section{
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+}
+
+.mood-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:14px;
+
+    margin-top:18px;
+
+}
+
+.mood{
+
+    height:62px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.06);
+
+    color:white;
+
+    font-size:1.4rem;
+
+}
+
+.mood:hover{
+
+    transform:translateY(-4px);
+
+    background:rgba(255,255,255,.12);
+
+}
+
+.mood.selected{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+}
+
+/* Symptoms */
+
+.symptoms-section{
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+}
+
+.symptom-grid{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:18px;
+
+}
+
+.symptom-grid button{
+
+    padding:12px 18px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.06);
+
+    color:white;
+
+    font-size:.9rem;
+
+}
+
+.symptom-grid button.active{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+}
+
+/* Pain */
+
+.pain-card{
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+}
+
+#painSlider{
+
+    width:100%;
+
+    margin-top:18px;
+
+}
+
+/* Water */
+
+.water-card{
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+}
+
+#waterTracker{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:18px;
+
+}
+
+.water-drop{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.06);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:1.2rem;
+
+}
+
+.water-drop.active{
+
+    background:linear-gradient(
+        135deg,
+        #59c7ff,
+        #4fa8ff
+    );
+
+}
+
+/* Sleep */
+
+.sleep-card{
+
+    padding:22px;
+
+    margin-bottom:22px;
+
+}
+
+#sleepTime{
+
+    width:100%;
+
+    margin-top:16px;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.05);
+
+}
+
+/* Save */
+
+#saveJournal{
+
+    width:100%;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    margin-bottom:25px;
+
+    box-shadow:
+
+        0 15px 35px rgba(255,111,174,.28);
+
+}
+
+#saveJournal:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 8
+    STATISTICS
+==================================================*/
+
+.stats-card{
+
+    padding:28px;
+
+    text-align:center;
+
+    margin-bottom:22px;
+
+}
+
+#avgCycle{
+
+    margin-top:12px;
+
+    font-size:3.2rem;
+
+    font-weight:800;
+
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:16px;
+
+    margin-bottom:22px;
+
+}
+
+.stats-grid .glass{
+
+    padding:22px;
+
+    text-align:center;
+
+}
+
+.stats-grid h4{
+
+    color:var(--text3);
+
+    margin-bottom:12px;
+
+}
+
+.stats-grid span{
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+}
+
+.chart-card{
+
+    padding:24px;
+
+    margin-bottom:22px;
+
+}
+
+.chart-card canvas{
+
+    width:100%;
+
+    height:220px;
+
+}
+
+.mood-chart{
+
+    padding:24px;
+
+    margin-bottom:22px;
+
+}
+
+.mood-chart canvas{
+
+    width:100%;
+
+    height:220px;
+
+}
+
+/* Achievements */
+
+.achievement-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:16px;
+
+    margin-top:22px;
+
+}
+
+.achievement{
+
+    padding:20px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.05);
+
+    text-align:center;
+
+    transition:.35s;
+
+}
+
+.achievement:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.achievement-icon{
+
+    font-size:2rem;
+
+    margin-bottom:12px;
+
+}
+
+.achievement h4{
+
+    margin-bottom:8px;
+
+}
+
+.achievement p{
+
+    font-size:.82rem;
+
+    color:var(--text3);
+
+}
+
+/* Streak */
+
+.streak-card{
+
+    margin-top:22px;
+
+    padding:26px;
+
+    text-align:center;
+
+}
+
+.streak-number{
+
+    font-size:3.5rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+}
+
+.streak-label{
+
+    color:var(--text3);
+
+    margin-top:8px;
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 9
+    SETTINGS
+==================================================*/
+
+.settings-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+}
+
+.settings-list button{
+
+    width:100%;
+
+    padding:20px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    text-align:left;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.settings-list button:hover{
+
+    background:rgba(255,255,255,.10);
+
+    transform:translateX(8px);
+
+}
+
+.settings-list button::after{
+
+    content:"›";
+
+    float:right;
+
+    font-size:1.4rem;
+
+    color:var(--text3);
+
+}
+
+/*=================================
+SECRET HEART
+=================================*/
+
+#secretHeart{
+
+    position:fixed;
+
+    right:26px;
+
+    bottom:120px;
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:1.4rem;
+
+    cursor:pointer;
+
+    opacity:.08;
+
+    transition:.4s;
+
+    z-index:999;
+
+}
+
+#secretHeart:hover{
+
+    opacity:.9;
+
+    transform:scale(1.25);
+
+}
+
+#secretModal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.75);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:22px;
+
+    z-index:99999;
+
+}
+
+#secretModal.active{
+
+    display:flex;
+
+}
+
+.secret-card{
+
+    width:100%;
+
+    max-width:420px;
+
+    padding:32px;
+
+    text-align:center;
+
+}
+
+.secret-card h2{
+
+    margin-bottom:22px;
+
+}
+
+.secret-card p{
+
+    line-height:2;
+
+}
+
+#closeSecret{
+
+    margin-top:25px;
+
+    width:100%;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+    color:white;
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 10
+    RESPONSIVE
+==================================================*/
+
+@media(max-width:430px){
+
+#app{
+
+padding:18px 14px 110px;
+
+}
+
+.hero-card{
+
+padding:20px;
+
+}
+
+#cycleDay{
+
+font-size:2.5rem;
+
+}
+
+#flowerContainer{
+
+width:90px;
+
+height:90px;
+
+}
+
+#flowerAnimation{
+
+width:70px;
+
+height:70px;
+
+}
+
+.cards-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.stats-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.week-days{
+
+font-size:.75rem;
+
+}
+
+.calendar-day{
+
+font-size:.9rem;
+
+}
+
+#bottomNavigation{
+
+height:70px;
+
+}
+
+#bottomNavigation button{
+
+width:50px;
+
+height:50px;
+
+}
+
+.mood-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(min-width:768px){
+
+#app{
+
+max-width:500px;
+
+}
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 11
+    PREMIUM INTERACTIONS
+==================================================*/
+
+/* Card Hover */
+
+.glass{
+
+    transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+
+}
+
+.glass:hover{
+
+    border-color:rgba(255,255,255,.22);
+
+}
+
+/* Fade Up */
+
+.fade-up{
+
+    animation:fadeUp .7s ease forwards;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+/* Scale */
+
+.scale-in{
+
+    animation:scaleIn .4s ease;
+
+}
+
+@keyframes scaleIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.92);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* Floating Animation */
+
+.float{
+
+    animation:floating 6s ease-in-out infinite;
+
+}
+
+@keyframes floating{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Pulse */
+
+.pulse{
+
+    animation:pulse 2.5s infinite;
+
+}
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.05);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* Active Button */
+
+button:active{
+
+    transform:scale(.96);
+
+}
+
+/* Image */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+    user-select:none;
+
+}
+
+/* Disable Selection */
+
+button,
+img{
+
+    user-select:none;
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 12
+    FINAL EFFECTS
+==================================================*/
+
+/* Loading */
+
+#loadingOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#080913;
+
+    z-index:999999;
+
+    transition:.6s;
+
+}
+
+#loadingOverlay.hide{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+
+/* Smooth Sections */
+
+section{
+
+    transition:.45s;
+
+}
+
+/* Glass Border */
+
+.glass{
+
+    border:
+
+    1px solid rgba(255,255,255,.08);
+
+}
+
+/* Gradient Text */
+
+.gradient-text{
+
+    background:
+
+    linear-gradient(
+
+    135deg,
+
+    var(--primary),
+
+    var(--secondary),
+
+    var(--accent)
+
+    );
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+/* Divider */
+
+.divider{
+
+    width:100%;
+
+    height:1px;
+
+    margin:18px 0;
+
+    background:
+
+    rgba(255,255,255,.06);
+
+}
+
+/* Glass Scroll */
+
+.scroll-area{
+
+    overflow:auto;
+
+}
+
+.scroll-area::-webkit-scrollbar{
+
+    width:4px;
+
+}
+
+.scroll-area::-webkit-scrollbar-thumb{
+
+    background:
+
+    rgba(255,255,255,.12);
+
+    border-radius:30px;
+
+}
+
+/* Blur Backdrop */
+
+.blur-backdrop{
+
+    backdrop-filter:blur(25px);
+
+    -webkit-backdrop-filter:blur(25px);
+
+}
+
+/* Hidden */
+
+.hidden{
+
+    display:none!important;
+
+}
+
+/* Fade */
+
+.fade{
+
+    opacity:.6;
+
+}
+
+/* End */
+
+html{
+
+    background:#080913;
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 13
+    FINAL POLISH
+==================================================*/
+
+/* Universal Card Padding */
+
+.hero-card,
+.countdown-card,
+.calendar-card,
+.journal-card,
+.stats-card,
+.settings-list,
+.secret-card,
+.mood-card,
+.quick-note-card,
+.luna-card{
+
+    border-radius:28px;
+
+}
+
+/* Glass Border Glow */
+
+.glass{
+
+    border:1px solid rgba(255,255,255,.10);
+
+}
+
+.glass:hover{
+
+    border-color:rgba(255,255,255,.20);
+
+}
+
+/* Inputs */
+
+input,
+textarea{
+
+    transition:.3s;
+
+}
+
+input::placeholder,
+textarea::placeholder{
+
+    color:#8c8ea8;
+
+}
+
+textarea{
+
+    line-height:1.8;
+
+}
+
+/* Buttons */
+
+button{
+
+    font-weight:600;
+
+    letter-spacing:.2px;
+
+}
+
+button:disabled{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+}
+
+/* Calendar */
+
+.calendar-day{
+
+    font-weight:600;
+
+}
+
+.calendar-day.today{
+
+    box-shadow:
+
+    0 0 18px rgba(114,184,255,.45);
+
+}
+
+/* Stats */
+
+.stats-grid span{
+
+    display:block;
+
+    margin-top:10px;
+
+}
+
+/* Footer Space */
+
+.page{
+
+    padding-bottom:120px;
+
+}
+
+/*==================================================
+    STYLE.CSS
+    PART 14
+    PREMIUM FINISH
+==================================================*/
+
+/* App Fade */
+
+body{
+
+    animation:appFade .7s ease;
+
+}
+
+@keyframes appFade{
+
+from{
+
+opacity:0;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}
+
+/* Soft Card Entrance */
+
+.glass{
+
+    animation:cardAppear .5s ease;
+
+}
+
+@keyframes cardAppear{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+/* Navigation Active */
+
+#bottomNavigation button.active{
+
+transform:translateY(-8px);
+
+}
+
+/* Small Badge */
+
+.badge{
+
+display:inline-flex;
+
+align-items:center;
+
+padding:6px 12px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.08);
+
+font-size:.8rem;
+
+}
+
+/* Chip */
+
+.chip{
+
+padding:8px 16px;
+
+border-radius:999px;
+
+background:rgba(255,255,255,.06);
+
+display:inline-flex;
+
+align-items:center;
+
+gap:8px;
+
+}
+
+/* Avatar */
+
+.avatar{
+
+width:46px;
+
+height:46px;
+
+border-radius:50%;
+
+background:linear-gradient(
+135deg,
+var(--primary),
+var(--secondary));
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:700;
+
+}
+
+/* Empty State */
+
+.empty{
+
+text-align:center;
+
+padding:40px 20px;
+
+color:var(--text3);
+
+}
+
+/* Utility */
+
+.center{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.w100{
+
+width:100%;
+
+}
+
+.mt20{
+
+margin-top:20px;
+
+}
+
+.mb20{
+
+margin-bottom:20px;
+
+}
